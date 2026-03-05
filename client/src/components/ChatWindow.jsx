@@ -25,8 +25,8 @@ function ChatWindow({
       </header>
 
       <div className="chat-messages">
-        {filteredMessages.map((message, index) => (
-          <div key={index} className="message-group">
+        {filteredMessages.map((message) => (
+          <div key={message.id} className="message-group">
             <div className="message-header">
               <span className="message-author">{message.author}</span>
               <span className="message-time">{message.time}</span>

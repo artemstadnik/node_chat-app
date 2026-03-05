@@ -103,8 +103,22 @@ function App() {
     });
 
     socket.on('room_renamed', ({ oldName, newName }) => {
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.room === oldName ? { ...msg, room: newName } : msg,
+        ),
+      );
+
       if (currentRoomRef.current === oldName) {
         setCurrentRoom(newName);
+      }
+    });
+
+    socket.on('room_deleted', (roomName) => {
+      setMessages((prev) => prev.filter((msg) => msg.room !== roomName));
+
+      if (currentRoomRef.current === roomName) {
+        setCurrentRoom('General');
       }
     });
 
@@ -119,6 +133,7 @@ function App() {
     return () => {
       socket.off('init_data');
       socket.off('room_renamed');
+      socket.off('room_deleted');
       socket.off('receive_message');
       socket.off('update_rooms');
     };

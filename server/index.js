@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import express from 'express';
 import { Server } from 'socket.io';
 import cors from 'cors';
@@ -40,8 +41,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('send_message', (message) => {
-    chatData.messages.push(message);
-    io.to(message.room).emit('receive_message', message);
+    const messageWithId = { ...message, id: randomUUID() };
+
+    chatData.messages.push(messageWithId);
+    io.to(message.room).emit('receive_message', messageWithId);
   });
 
   socket.on('create_room', (roomName) => {
@@ -74,7 +77,7 @@ io.on('connection', (socket) => {
     }
 
     io.emit('room_renamed', { oldName, newName });
-    io.emit('init_data', chatData);
+    io.emit('update_rooms', chatData.rooms);
   });
 
   socket.on('delete_room', (roomName) => {
@@ -97,7 +100,8 @@ io.on('connection', (socket) => {
       }
     }
 
-    io.emit('init_data', chatData);
+    io.emit('room_deleted', roomName);
+    io.emit('update_rooms', chatData.rooms);
   });
 
   socket.on('disconnect', () => {});
