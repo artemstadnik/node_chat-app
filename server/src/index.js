@@ -10,7 +10,9 @@ const app = express();
 
 app.use(cors());
 
-const httpServer = app.listen(PORT);
+const httpServer = app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 const io = new Server(httpServer, {
   cors: {
