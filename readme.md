@@ -2,6 +2,12 @@
 
 A real-time multi-room chat application built with React, Node.js, Express, and Socket.IO. Features instant messaging, room management (create, rename, delete, join), persistent usernames, and a Discord-inspired dark UI.
 
+## Live Preview
+
+**[Node Chat App — Live Demo](https://node-chat-app-1-xhfk.onrender.com)**
+
+> Free-tier instance may take ~30 seconds to wake up on first visit.
+
 ## Technologies Used
 
 - **React 18** — UI framework with custom hooks architecture

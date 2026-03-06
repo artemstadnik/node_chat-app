@@ -16,6 +16,15 @@ function registerRoomHandlers(io, socket) {
   socket.on('create_room', (roomName) => {
     if (!chatData.rooms.includes(roomName)) {
       chatData.rooms.push(roomName);
+
+      const joinedRooms = Array.from(socket.rooms);
+      joinedRooms.forEach((room) => {
+        if (room !== socket.id) {
+          socket.leave(room);
+        }
+      });
+      socket.join(roomName);
+
       io.emit('update_rooms', chatData.rooms);
     }
   });
