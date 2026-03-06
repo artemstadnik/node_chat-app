@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import '../styles/ChatWindow.scss';
 
 function ChatWindow({
   currentRoom,

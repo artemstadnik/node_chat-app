@@ -1,3 +1,5 @@
+import '../styles/Login.scss';
+
 function Login({ onLogin, temporaryName, onTemporaryNameChange }) {
   return (
     <div className="login-page">

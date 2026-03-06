@@ -1,14 +1,15 @@
 module.exports = {
-  extends: '@mate-academy/eslint-config',
+  extends: 'eslint:recommended',
   env: {
-    jest: true,
-    browser: true
+    node: true,
+    browser: true,
+    es2022: true
   },
   parserOptions: {
-    requireConfigFile: false,
+    ecmaVersion: 'latest',
     sourceType: 'module',
-    babelOptions: {
-      plugins: ['@babel/plugin-syntax-jsx']
+    ecmaFeatures: {
+      jsx: true
     }
   },
   rules: {
@@ -17,5 +18,5 @@ module.exports = {
     'react/jsx-uses-vars': 'error',
     'react/jsx-uses-react': 'error'
   },
-  plugins: ['jest', 'react']
+  plugins: ['react']
 };

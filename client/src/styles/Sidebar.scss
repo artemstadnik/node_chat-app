@@ -1,0 +1,180 @@
+@use 'global' as *;
+
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: $color-sidebar-bg;
+  border-right: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &-header {
+    padding: 20px;
+    border-bottom: 1px solid $color-border;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: $color-accent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  &-username {
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-rooms {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 12px;
+  }
+
+  &-section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $color-text-muted;
+    padding: 0 8px;
+    margin-bottom: 8px;
+  }
+}
+
+.btn-logout {
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid $color-border;
+  color: $color-text-muted;
+  border-radius: $radius-sm;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+
+  &:hover {
+    background: $color-danger;
+    border-color: $color-danger;
+    color: white;
+  }
+}
+
+.btn-create-room {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  background: transparent;
+  border: 1px dashed $color-border;
+  color: $color-accent;
+  border-radius: $radius-md;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  &:hover {
+    background: $color-accent-glow;
+    border-color: $color-accent;
+  }
+}
+
+.room-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.room-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: background $transition-fast;
+  gap: 8px;
+
+  &:hover {
+    background: $color-surface-hover;
+
+    .room-actions {
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    background: $color-surface-active;
+  }
+}
+
+.room-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  flex: 1;
+  min-width: 0;
+
+  &-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.room-hash {
+  color: $color-text-muted;
+  font-weight: 500;
+}
+
+.room-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity $transition-fast;
+  flex-shrink: 0;
+}
+
+.btn-room-action {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-radius: $radius-sm;
+  font-size: 0.75rem;
+  padding: 0;
+  color: $color-text-muted;
+
+  &:hover {
+    background: $color-surface;
+    color: $color-text;
+  }
+
+  &.danger:hover {
+    background: rgba($color-danger, 0.15);
+    color: $color-danger;
+  }
+}

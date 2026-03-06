@@ -1,3 +1,5 @@
+import '../styles/Sidebar.scss';
+
 function Sidebar({
   rooms,
   currentRoom,

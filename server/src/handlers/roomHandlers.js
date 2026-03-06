@@ -1,33 +1,6 @@
-import { randomUUID } from 'node:crypto';
-import express from 'express';
-import { Server } from 'socket.io';
-import cors from 'cors';
+import chatData from '../store.js';
 
-const app = express();
-
-app.use(cors());
-
-const httpServer = app.listen(3005);
-
-const io = new Server(httpServer, {
-  cors: {
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST'],
-  },
-});
-
-const chatData = {
-  rooms: ['General'],
-  messages: [],
-};
-
-io.on('connection', (socket) => {
-  socket.emit('init_data', chatData);
-
-  socket.on('set_username', (username) => {
-    socket.username = username;
-  });
-
+function registerRoomHandlers(io, socket) {
   socket.on('join_room', (roomName) => {
     const joinedRooms = Array.from(socket.rooms);
 
@@ -38,13 +11,6 @@ io.on('connection', (socket) => {
     });
 
     socket.join(roomName);
-  });
-
-  socket.on('send_message', (message) => {
-    const messageWithId = { ...message, id: randomUUID() };
-
-    chatData.messages.push(messageWithId);
-    io.to(message.room).emit('receive_message', messageWithId);
   });
 
   socket.on('create_room', (roomName) => {
@@ -103,6 +69,6 @@ io.on('connection', (socket) => {
     io.emit('room_deleted', roomName);
     io.emit('update_rooms', chatData.rooms);
   });
+}
 
-  socket.on('disconnect', () => {});
-});
+export default registerRoomHandlers;
